@@ -1,0 +1,40 @@
+<div class="row">
+
+  <div class="col s3">
+    <select class="browser-default" [(ngModel)]="selectedValue">
+      <option value="" disabled selected>Choose task option</option>
+      <option value="1">Send</option>
+      <option value="2">Send by id</option>
+      <option value="3">SendToAll</option>
+      <option value="4">Delete</option>
+    </select>
+    <label>Select option</label>
+  </div>
+
+  <div class="col s3" [hidden]="selectedValue !== '1'">
+    <select class="browser-default" [(ngModel)]="selectedRobotType">
+      <option value="" disabled selected>Choose robot type</option>
+      <option value="LAZY">LAZY</option>
+      <option value="FAST">FAST</option>
+    </select>
+    <label>Select Robot Type</label>
+  </div>
+
+  <div class="col s3" [hidden]="(selectedValue == '' || selectedValue == '4')">
+    <div class="input-field col4">
+      <input id="task_id1" type="text" class="validate" placeholder="Task" [(ngModel)]="taskToDo">
+    </div>
+  </div>
+
+  <div class="col s3" [hidden]="(selectedValue == '1' || selectedValue == '3' || selectedValue == '')">
+    <div class="input-field col4">
+      <input id="robot Id" type="text" class="validate" placeholder="Robot Id" [(ngModel)]="robotId">
+    </div>
+  </div>
+
+  <div class="col s3" [hidden]="selectedValue == ''">
+    <div class="col">
+      <a class="waves-effect waves-light btn" (click)="send()">Send</a>
+    </div>
+  </div>
+</div>
