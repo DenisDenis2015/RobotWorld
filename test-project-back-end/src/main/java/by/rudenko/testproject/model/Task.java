@@ -51,7 +51,7 @@ public class Task {
 	@Override
 	public String toString() {
 		return "Task id=" + taskId + ", task = " + taskToDo + ", for robot type " + robotType
-			+ ", "	+  taskType.getDescription();
+			+ ", "	+  taskType.getDescription() != null ? taskType.getDescription() : "type is empty";
 	}
 
 }

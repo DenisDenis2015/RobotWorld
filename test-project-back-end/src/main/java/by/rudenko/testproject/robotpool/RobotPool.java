@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import by.rudenko.testproject.model.Robot;
 import by.rudenko.testproject.model.RobotType;
+import by.rudenko.testproject.service.impl.RobotFactoryImpl;
 
 /**
  * RobotPool - contains robots.
@@ -26,7 +27,7 @@ public class RobotPool {
 	private Map<RobotType, Long> robotPoolConfig;
 	
 	@Autowired
-	public Function<RobotType,  ? extends Robot> robotFactory;
+	public RobotFactoryImpl robotFactory;
 
 	public List<? extends Robot> getRobots() {
 		return robots;
@@ -39,10 +40,10 @@ public class RobotPool {
     @PostConstruct
     public void initRobot() {
 	    robots = new CopyOnWriteArrayList<>();
-        robots.add(robotFactory.apply(RobotType.FAST));
-        robots.add(robotFactory.apply(RobotType.FAST));
-        robots.add(robotFactory.apply(RobotType.LAZY));
-        robots.add(robotFactory.apply(RobotType.LAZY));
+        robots.add(robotFactory.createRobot(RobotType.FAST));
+        robots.add(robotFactory.createRobot(RobotType.FAST));
+        robots.add(robotFactory.createRobot(RobotType.LAZY));
+        robots.add(robotFactory.createRobot(RobotType.LAZY));
         saveRobotPoolConfiguration();
     }
 	
@@ -57,7 +58,7 @@ public class RobotPool {
 	}
 
     public Robot addRobot(RobotType type){
-    	Robot robot = robotFactory.apply(type);
+    	Robot robot = robotFactory.createRobot(type);
 		robots.add(robot);
 		return robot;
 	}

@@ -1,21 +1,17 @@
-package by.rudenko.testproject.factory;
-
-import java.util.function.Function;
+package by.rudenko.testproject.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 import by.rudenko.testproject.model.FastRobot;
 import by.rudenko.testproject.model.LazyRobot;
 import by.rudenko.testproject.model.Robot;
 import by.rudenko.testproject.model.RobotType;
 import by.rudenko.testproject.service.ReportService;
+import by.rudenko.testproject.service.RobotFactory;
 
-@EnableAutoConfiguration
-public class RobotFactory {
+@Service
+public class RobotFactoryImpl implements RobotFactory {
 	
     @Autowired
     private ReportService reportService;
@@ -23,14 +19,6 @@ public class RobotFactory {
     /**
      * Creating a new robot by type.
      */
-    @Bean
-    public Function<RobotType, ? extends Robot> robotFactory() {
-        return this::createRobot;
-    }
-
-    @Bean
-    @Scope(value = "prototype")
-    @DependsOn(value = {"reportService"})
     public Robot createRobot(RobotType robotType) {
         if (RobotType.FAST.equals(robotType) || (RobotType.ANY.equals(robotType))) {
             return new FastRobot(reportService);

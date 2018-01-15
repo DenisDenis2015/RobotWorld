@@ -8,15 +8,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import by.rudenko.testproject.factory.RobotFactory;
-
 /**
  * Project config.
  */
 @EnableScheduling
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {"by.rudenko.testproject"})
-@Import({RabbitConfiguration.class, WebSocketConfig.class, RobotFactory.class})
+@Import({RabbitConfiguration.class, WebSocketConfig.class})
 public class SpringBootConfiguration {
 
     public static void main(String[] args) throws Exception {
